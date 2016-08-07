@@ -35,6 +35,15 @@ export class QuestionsPage {
     this.navCtrl.push(QuestionDetailPage, {'question': q});
   }
 
+  public removeQuestion(q: Question) {
+    this.storage.remove(q);
+    let index = this.questions.indexOf(q);
+
+    if (index > -1) {
+      this.questions.splice(index, 1);
+    }
+  }
+
   ionViewDidEnter () {
     this.loadQuestions();
   }

@@ -9,12 +9,17 @@
 
 <ion-content class="questions" padding>
   <ion-list>
-    <!-- <ion-item-group reorder="true" (ionItemReorder)="reorderQuestions($event)"> -->
-    <ion-item-group>
-      <button ion-item *ngFor="let q of questions; let i = index" (click)="updateQuestion(q)">
+    <ion-item-sliding *ngFor="let q of questions; let i = index">
+      <ion-item (click)="updateQuestion(q)">
         <h2>{{ i+1 }}. {{ q.question }}</h2>
-      </button>
-    </ion-item-group>
+      </ion-item>
+      <ion-item-options side="right">
+        <button danger (click)="removeQuestion(q)">
+          <ion-icon name="trash"></ion-icon>
+          Delete
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
   <button fab dark fab-bottom fab-right (click)="addQuestion()">
     <ion-icon name="add"></ion-icon>
