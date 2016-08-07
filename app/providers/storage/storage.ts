@@ -16,7 +16,7 @@ export class StorageProvider {
 
   constructor() {
     this.storage = new Storage(SqlStorage, { name: 'interviewer.db' });
-    this.storage.query('CREATE TABLE IF NOT EXISTS questions (id INTEGER PRIMARY KEY AUTOINCREMENT, question TEXT)');
+    this.storage.query('CREATE TABLE IF NOT EXISTS questions (id INTEGER PRIMARY KEY AUTOINCREMENT, question TEXT UNIQUE)');
   }
 
   public get() {
@@ -36,7 +36,7 @@ export class StorageProvider {
   }
 
   public create(q: Question) {
-    let sql = 'INSERT INTO questions (question) VALUES (?)';
+    let sql = 'INSERT OR IGNORE INTO questions (question) VALUES (?)';
     return this.storage.query(sql, [q.question]);
   }
 
@@ -47,6 +47,11 @@ export class StorageProvider {
 
   public remove(q: Question) {
     let sql = 'DELETE FROM questions WHERE id = \"' + q.id + '\"';
+    this.storage.query(sql);
+  }
+
+  public clear() {
+    let sql = 'DELETE FROM questions';
     this.storage.query(sql);
   }
 
