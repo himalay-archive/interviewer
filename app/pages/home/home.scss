@@ -1,3 +1,36 @@
 .home {
-  
+  ion-grid, ion-row , ion-col {
+    padding: 0;
+  }
+  .button-fab {
+    z-index: 5;
+  }
+  .noise-level {
+    font-size: 2.5em;
+  }
+  .calibrate {
+    top: 32px;
+  }
+  ion-slides {
+    height: calc(100vh - 201px);
+    ion-slide {
+      ion-card {
+        height: calc(100vh - 239px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+  .toggle {
+    position: absolute;
+    top: calc(50% - 64px);
+    left: calc(50% - 64px);
+    opacity: 0.3;
+    height: 128px;
+    width: 128px;
+    ion-icon {
+      font-size: 4em;
+    }
+  }
 }

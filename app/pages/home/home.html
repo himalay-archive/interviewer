@@ -1,19 +1,42 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content class="home" padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <ion-card>
+          <ion-card-content>
+            <span class="noise-level">44</span>dB
+          </ion-card-content>
+        </ion-card>
+     </ion-col>
+      <ion-col text-center>
+        <ion-card>
+          <ion-card-content>
+            <span class="noise-level">55</span>dB
+          </ion-card-content>
+        </ion-card>
+     </ion-col>
+    </ion-row>
+  </ion-grid>
 
-<ion-content padding>
+  <button fab dark fab-top fab-center class="calibrate">
+    <ion-icon name="arrow-dropleft"></ion-icon>
+  </button>
+
   <ion-slides>
     <ion-slide *ngFor="let q of questions; let i = index">
       <ion-card>
         <ion-card-content>
-          <h1>{{i+1}}. {{q.question}}</h1>
+          <h1>{{ i+1 }}. {{ q.question }}</h1>
         </ion-card-content>
       </ion-card>
     </ion-slide>
   </ion-slides>
+
+  <button fab light class="toggle">
+    <ion-icon name="play"></ion-icon>
+  </button>
+
+  <button fab dark fab-bottom fab-right (click)="openQuestions()">
+    <ion-icon name="list"></ion-icon>
+  </button>
 </ion-content>

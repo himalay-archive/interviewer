@@ -1,0 +1,16 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Questions</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="questions" padding>
+  <ion-list>
+    <ion-item-group reorder="true" (ionItemReorder)="reorderQuestions($event)">
+      <ion-item *ngFor="let q of questions; let i = index">{{ i+1 }}. {{ q.question }}</ion-item>
+    </ion-item-group>
+  </ion-list>
+</ion-content>

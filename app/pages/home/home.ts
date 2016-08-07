@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 
 import {StorageProvider, Question} from '../../providers/storage/storage';
+import {QuestionsPage} from '../questions/questions';
 
 @Component({
   templateUrl: 'build/pages/home/home.html'
@@ -9,9 +10,9 @@ import {StorageProvider, Question} from '../../providers/storage/storage';
 export class HomePage {
   questions: Array<Question> = [];
 
-  constructor(public navCtrl: NavController, public  storage : StorageProvider) {
-    let sampleQuestion = new Question('What is the question?', null);
-    this.storage.create(sampleQuestion).then(() => console.log('question added'), err => console.error(err));
+  constructor(public navCtrl: NavController, public storage : StorageProvider) {
+    let sampleQuestion: Array<Question> = [new Question('What is the question?', null), new Question('What is your answer?', null)];
+    sampleQuestion.forEach(q => this.storage.create(q).then(() => console.log('question added'), err => console.error(err)));
   }
 
   private loadQuestions() {
@@ -19,6 +20,10 @@ export class HomePage {
     .then((questions: Array<Question>) => {
       this.questions = questions;
     });
+  }
+
+  public openQuestions() {
+    this.navCtrl.push(QuestionsPage);
   }
 
   ionViewDidEnter () {
