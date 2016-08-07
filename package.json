@@ -35,7 +35,13 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
-    "cordova-sqlite-storage"
+    "cordova-sqlite-storage",
+    "cordova-plugin-dbmeter",
+    {
+      "locator": "https://github.com/akofman/cordova-plugin-add-swift-support",
+      "id": "cordova-plugin-add-swift-support"
+    },
+    "cordova-plugin-tts"
   ],
   "cordovaPlatforms": [
     "ios",
