@@ -1,0 +1,18 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ question.id ? 'Update the' : 'Add a ' }} Question</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="question-detail" padding>
+  <p>Your question will be saved on press of the back button.</p>
+  <ion-list no-lines>
+    <ion-item>
+      <ion-label floating>Type your question here</ion-label>
+      <ion-textarea [(ngModel)]="question.question"></ion-textarea>
+    </ion-item>
+  </ion-list>
+</ion-content>
