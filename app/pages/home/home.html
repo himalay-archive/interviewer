@@ -4,25 +4,25 @@
       <ion-col text-center>
         <ion-card>
           <ion-card-content>
-            <span class="noise-level">44</span>dB
+            <span class="noise-level">{{calibratedDb}}</span>dB
           </ion-card-content>
         </ion-card>
      </ion-col>
       <ion-col text-center>
         <ion-card>
           <ion-card-content>
-            <span class="noise-level">55</span>dB
+            <span class="noise-level">{{currentDb}}</span>dB
           </ion-card-content>
         </ion-card>
      </ion-col>
     </ion-row>
   </ion-grid>
 
-  <button fab dark fab-top fab-center class="calibrate">
-    <ion-icon name="arrow-dropleft"></ion-icon>
+  <button fab dark fab-top fab-center class="calibrate" (click)="calibrate()" [disabled]="playing">
+    <ion-icon name="infinite"></ion-icon>
   </button>
-
-  <ion-slides>
+  <p text-center>Tap the above button to calibrate the ambient noise level.</p>
+  <ion-slides #qSlider (ionDidChange)="onSlideChanged()" loop="true">
     <ion-slide *ngFor="let q of questions; let i = index">
       <ion-card>
         <ion-card-content>
@@ -32,11 +32,12 @@
     </ion-slide>
   </ion-slides>
 
-  <button fab light class="toggle">
-    <ion-icon name="play"></ion-icon>
+  <button fab light class="toggle" (click)="toggleInterview()">
+    <ion-icon name="{{playing ? 'square' : 'play'}}"></ion-icon>
   </button>
 
-  <button fab dark fab-bottom fab-right (click)="openQuestions()">
+
+  <button fab dark fab-bottom fab-right (click)="openQuestions()" [disabled]="playing">
     <ion-icon name="list"></ion-icon>
   </button>
 </ion-content>
