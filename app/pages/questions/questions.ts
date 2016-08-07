@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import {StorageProvider, Question} from '../../providers/storage/storage';
+import {QuestionDetailPage} from '../question-detail/question-detail';
 
 @Component({
   templateUrl: 'build/pages/questions/questions.html',
@@ -20,10 +21,18 @@ export class QuestionsPage {
     });
   }
 
-  reorderQuestions(indexes) {
-    let element = this.questions[indexes.from];
+  public reorderQuestions(indexes) {
+    let element: Question = this.questions[indexes.from];
     this.questions.splice(indexes.from, 1);
     this.questions.splice(indexes.to, 0, element);
+  }
+
+  public addQuestion() {
+    this.navCtrl.push(QuestionDetailPage);
+  }
+
+  public updateQuestion(q: Question) {
+    this.navCtrl.push(QuestionDetailPage, {'question': q});
   }
 
   ionViewDidEnter () {
