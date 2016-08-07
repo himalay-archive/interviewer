@@ -12,10 +12,10 @@
     top: 32px;
   }
   ion-slides {
-    height: calc(100vh - 201px);
+    height: calc(100vh - 201px - 20px);
     ion-slide {
       ion-card {
-        height: calc(100vh - 239px);
+        height: calc(100vh - 239px - 120px);
         display: flex;
         align-items: center;
         justify-content: center;
