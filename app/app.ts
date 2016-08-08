@@ -1,9 +1,11 @@
 import {Component} from '@angular/core';
 import {Platform, ionicBootstrap} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
-import {HomePage} from './pages/home/home';
 
 import {StorageProvider} from './providers/storage/storage';
+import {HomePage} from './pages/home/home';
+import {WelcomePage} from './pages/welcome/welcome';
+
 
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>'
