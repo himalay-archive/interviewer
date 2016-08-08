@@ -1,5 +1,5 @@
 import {Component, ViewChild, ChangeDetectorRef} from "@angular/core";
-import {NavController, Slides} from 'ionic-angular';
+import {NavController, Slides, ToastController} from 'ionic-angular';
 import { DBMeter } from 'ionic-native';
 
 import {StorageProvider, Question} from '../../providers/storage/storage';
@@ -27,10 +27,25 @@ export class HomePage {
   speaking: boolean = false;
   @ViewChild('qSlider') slider: Slides;
 
-  constructor(public navCtrl: NavController, private ref: ChangeDetectorRef, public storage : StorageProvider) {
+  constructor(public navCtrl: NavController, private ref: ChangeDetectorRef, public storage : StorageProvider, private toast : ToastController) {
     let subscription = DBMeter.start().subscribe(data => {
       this.currentDb = parseFloat(data);
       this.ref.detectChanges();
+    });
+    this.storage.getKV('candidate').then((value) => {
+      if (typeof value === 'string') {
+        this.candidate = value;
+      } else {
+        this.presentToast('Please set your name.')
+        this.navCtrl.setRoot(HomePage);
+      }
+    });
+    this.storage.getKV('calibratedDb').then((value) => {
+      if (typeof value === 'number') {
+        this.calibratedDb = value;
+      } else {
+        this.presentToast('Please calibrate the noise level.')
+      }
     });
   }
 
@@ -112,6 +127,14 @@ export class HomePage {
         () => console.log('done asking'),
         err => console.error(err));
     }
+  }
+
+  presentToast (message: string) {
+    let toast = this.toast.create({
+      message: message,
+      duration: 3000
+    });
+    toast.present();
   }
 
   ionViewDidEnter () {
