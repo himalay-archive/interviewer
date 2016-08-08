@@ -21,15 +21,15 @@ declare module TTS {
 export class HomePage {
   questions: Array<Question> = [];
   candidate: string = 'Candidate';
-  calibratedDb: number = 0;
-  currentDb: number = 0;
+  calibratedDb: number = 0.0;
+  currentDb: number = 0.0;
   playing: boolean = false;
   speaking: boolean = false;
   @ViewChild('qSlider') slider: Slides;
 
   constructor(public navCtrl: NavController, private ref: ChangeDetectorRef, public storage : StorageProvider) {
     let subscription = DBMeter.start().subscribe(data => {
-      this.currentDb = parseInt(data);
+      this.currentDb = parseFloat(data);
       this.ref.detectChanges();
     });
   }
@@ -53,7 +53,7 @@ export class HomePage {
       count++;
       if (count > 9) {
         this.calibratedDb = sum/count;
-        this.storage.setKV('calibratedDb', this.calibratedDb)
+        this.storage.setKV('calibratedDb', this.calibratedDb);
         clearInterval(calibrateInterval);
       }
     }, 200);
@@ -84,7 +84,7 @@ export class HomePage {
          } else {
            isNotAnswering = 0;
          }
-         if (isNotAnswering > 30) {
+         if (isNotAnswering > 15) {
            isNotAnswering = 0;
            if (this.slider.isEnd()) {
              TTS.speak(`That was the last question for you. Thank you very much ${this.candidate}.`,

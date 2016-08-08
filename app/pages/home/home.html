@@ -4,14 +4,14 @@
       <ion-col text-center>
         <ion-card>
           <ion-card-content>
-            <span class="noise-level">{{calibratedDb}}</span>dB
+            <span class="noise-level">{{calibratedDb | number:'2.1-1'}}</span>dB
           </ion-card-content>
         </ion-card>
      </ion-col>
       <ion-col text-center>
         <ion-card>
           <ion-card-content>
-            <span class="noise-level">{{currentDb}}</span>dB
+            <span class="noise-level">{{currentDb | number:'2.1-1'}}</span>dB
           </ion-card-content>
         </ion-card>
      </ion-col>
