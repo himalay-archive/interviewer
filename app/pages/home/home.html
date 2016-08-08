@@ -22,7 +22,7 @@
     <ion-icon name="infinite"></ion-icon>
   </button>
   <p text-center>Tap the above button to calibrate the ambient noise level.</p>
-  <ion-slides #qSlider (ionDidChange)="onSlideChanged()" loop="true">
+  <ion-slides #qSlider (ionDidChange)="onSlideChanged()" [options]="{onlyExternal: true}">
     <ion-slide *ngFor="let q of questions; let i = index">
       <ion-card>
         <ion-card-content>
