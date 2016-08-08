@@ -1,3 +1,23 @@
 .welcome {
-
+  .slide-zoom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    .logo {
+      margin: 2em 0;
+    }
+    .message {
+      margin-bottom: 2em;
+    }
+    .name-input {
+      margin: 5em 0;
+    }
+    .open-home {
+      margin: 2em 0;
+    }
+  }
+  .button-fab {
+    position: relative;
+  }
 }

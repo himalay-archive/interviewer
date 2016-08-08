@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-/*
-  Generated class for the WelcomePage page.
+import {StorageProvider} from '../../providers/storage/storage';
+import {HomePage} from '../home/home';
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   templateUrl: 'build/pages/welcome/welcome.html',
 })
 export class WelcomePage {
+  candidate: string;
 
-  constructor(private navCtrl: NavController) {
+  constructor(private navCtrl: NavController, public storage: StorageProvider) {}
 
+  public openHome () {
+    this.storage.setKV('candidate', this.candidate);
+    this.navCtrl.setRoot(HomePage);
   }
-
 }

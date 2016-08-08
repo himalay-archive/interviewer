@@ -1,18 +1,19 @@
-<!--
-  Generated template for the WelcomePage page.
+<ion-content padding class="welcome" text-center>
+  <ion-slides>
+    <ion-slide>
+      <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="128" height="76.614" viewBox="0 0 128 76.614">
+        <path d="M11.51 0v76.614h2.948V0H11.51zm11.51 0v76.614h2.95V0h-2.95zm18.45 0v76.614h2.947V0H41.47zM67.5 0v76.614h2.947V0H67.5zM97.19 0v76.614h2.948V0H97.19zm4.84 0v76.614h2.95V0h-2.95zm18.18 0v76.614h2.948V0h-2.948zM0 21.313V55.3h2.95V21.312H0zm4.842 0V55.3h2.946V21.312H4.842zm11.508 0V55.3h2.95V21.312h-2.95zm13.34 0V55.3h2.946V21.312H29.69zm6.67 0V55.3h2.946V21.312H36.36zm9.95 0V55.3h2.947V21.312H46.31zm6.67 0V55.3h2.946V21.312H52.98zm4.84 0V55.3h2.948V21.312h-2.95zm4.84 0V55.3h2.95V21.312h-2.95zm11.51 0V55.3h2.948V21.312H74.17zm4.84 0V55.3h2.95V21.312h-2.95zm6.67 0V55.3h2.95V21.312h-2.95zm6.67 0V55.3h2.947V21.312H92.35zm16.35 0V55.3h2.95V21.312h-2.95zm6.67 0V55.3h2.947V21.312h-2.946zm9.68 0V55.3H128V21.312h-2.95z"/>
+      </svg>
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
+      <p class="message">Welcome. I am your interviewer.</p>
 
-  <ion-navbar>
-    <ion-title>welcome</ion-title>
-  </ion-navbar>
+      <ion-item class="name-input">
+        <ion-input type="text" placeholder="Type your name here" [(ngModel)]="candidate" (keyup.enter)="openHome()"></ion-input>
+      </ion-item>
 
-</ion-header>
-
-
-<ion-content padding>
-
+      <button class="open-home" fab dark [disabled]="!candidate" (click)="openHome()">
+        <ion-icon name="return-right"></ion-icon>
+      </button>
+    </ion-slide>
+  </ion-slides>
 </ion-content>
