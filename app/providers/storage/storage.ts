@@ -56,7 +56,9 @@ export class StorageProvider {
   }
 
   public getKV(key: string) {
-    this.storage.get(key).then(({res}) => res);
+    return new Promise((resolve, reject) => {
+      this.storage.get(key).then(data => resolve(data));
+    })
   }
 
   public setKV(key: string, value: any) {
