@@ -19,16 +19,13 @@
   </ion-grid>
 
   <button fab dark fab-top fab-center class="calibrate" (click)="calibrate()" [disabled]="playing">
-    <ion-icon name="infinite"></ion-icon>
+    <ion-spinner *ngIf="loading"></ion-spinner>
+    <ion-icon *ngIf="!loading" name="infinite"></ion-icon>
   </button>
-  <p text-center>Tap the above button to calibrate the ambient noise level.</p>
+
   <ion-slides #qSlider (ionDidChange)="onSlideChanged()" [options]="{onlyExternal: true}">
     <ion-slide *ngFor="let q of questions; let i = index">
-      <ion-card>
-        <ion-card-content>
-          <h1>{{ i+1 }}. {{ q.question }}</h1>
-        </ion-card-content>
-      </ion-card>
+        <h1 class="question">{{ i+1 }}. {{ q.question }}</h1>
     </ion-slide>
   </ion-slides>
 

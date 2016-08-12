@@ -13,13 +13,8 @@
   }
   ion-slides {
     height: calc(100vh - 201px - 20px);
-    ion-slide {
-      ion-card {
-        height: calc(100vh - 239px - 120px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+    h1.question {
+      margin: 0;
     }
   }
   .toggle {
@@ -32,5 +27,9 @@
     ion-icon {
       font-size: 4em;
     }
+  }
+
+  ion-spinner svg circle {
+    stroke: #fff;
   }
 }

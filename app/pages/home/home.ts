@@ -25,6 +25,7 @@ export class HomePage {
   currentDb: number = 0.0;
   playing: boolean = false;
   speaking: boolean = false;
+  loading: boolean = false;
   @ViewChild('qSlider') slider: Slides;
 
   constructor(public navCtrl: NavController, private ref: ChangeDetectorRef, public storage : StorageProvider, private toast : ToastController) {
@@ -38,13 +39,6 @@ export class HomePage {
       } else {
         this.presentToast('Please set your name.')
         this.navCtrl.setRoot(HomePage);
-      }
-    });
-    this.storage.getKV('calibratedDb').then((value) => {
-      if (typeof value === 'number') {
-        this.calibratedDb = value;
-      } else {
-        this.presentToast('Please calibrate the noise level.')
       }
     });
   }
@@ -63,12 +57,14 @@ export class HomePage {
   public calibrate() {
     let sum: number = 0;
     let count: number = 0;
+    this.loading = true;
     let calibrateInterval = window.setInterval(() => {
       sum +=this.currentDb;
       count++;
       if (count > 9) {
         this.calibratedDb = sum/count;
         this.storage.setKV('calibratedDb', this.calibratedDb);
+        this.loading = false;
         clearInterval(calibrateInterval);
       }
     }, 200);
@@ -139,5 +135,13 @@ export class HomePage {
 
   ionViewDidEnter () {
     this.loadQuestions();
+
+    this.storage.getKV('calibratedDb').then((value) => {
+      if (value !== undefined) {
+        this.calibratedDb = +value;
+      } else {
+        this.presentToast('Please calibrate the noise level.')
+      }
+    });
   }
 }
