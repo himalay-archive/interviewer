@@ -9,11 +9,15 @@ import {HomePage} from '../home/home';
 })
 export class WelcomePage {
   candidate: string;
+  loading: boolean = false;
 
   constructor(private navCtrl: NavController, public storage: StorageProvider) {}
 
   public openHome () {
-    this.storage.setKV('candidate', this.candidate);
-    this.navCtrl.setRoot(HomePage);
+    this.loading = true;
+    setTimeout(() => {
+      this.storage.setKV('candidate', this.candidate);
+      this.navCtrl.setRoot(HomePage);
+    }, 500)
   }
 }
