@@ -1,35 +1,33 @@
-.home {
-  ion-grid, ion-row , ion-col {
-    padding: 0;
-  }
+.dark-header {
+  background-color: #222;
   .button-fab {
+    bottom: -32px;
     z-index: 5;
   }
-  .noise-level {
-    font-size: 2.5em;
-  }
-  .calibrate {
-    top: 32px;
-  }
-  ion-slides {
-    height: calc(100vh - 201px - 20px);
-    h1.question {
+}
+.home {
+  scroll-content {
+    overflow: hidden;
+    .button-fab {
+      z-index: 5;
+    }
+    ion-slides {
+      height: calc(100vh - 56px - 180px);
       margin: 0;
+      h1.question {
+        margin: 0;
+      }
     }
-  }
-  .toggle {
-    position: absolute;
-    top: calc(50% - 64px);
-    left: calc(50% - 64px);
-    opacity: 0.3;
-    height: 128px;
-    width: 128px;
-    ion-icon {
-      font-size: 4em;
+    .toggle {
+      position: absolute;
+      top: calc(50% - 64px);
+      left: calc(50% - 64px);
+      opacity: 0.3;
+      height: 128px;
+      width: 128px;
+      ion-icon {
+        font-size: 4em;
+      }
     }
-  }
-
-  ion-spinner svg circle {
-    stroke: #fff;
   }
 }

@@ -1,28 +1,15 @@
-<ion-content class="home" padding>
-  <ion-grid>
-    <ion-row>
-      <ion-col text-center>
-        <ion-card>
-          <ion-card-content>
-            <span class="noise-level">{{calibratedDb | number:'2.1-1'}}</span>dB
-          </ion-card-content>
-        </ion-card>
-     </ion-col>
-      <ion-col text-center>
-        <ion-card>
-          <ion-card-content>
-            <span class="noise-level">{{currentDb | number:'2.1-1'}}</span>dB
-          </ion-card-content>
-        </ion-card>
-     </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <button fab dark fab-top fab-center class="calibrate" (click)="calibrate()" [disabled]="playing">
+<ion-header class="dark-header">
+  <ion-navbar dark>
+    <ion-title>Interviewer</ion-title>
+  </ion-navbar>
+  <canvas id="sparkLine"></canvas>
+  <button fab light fab-bottom fab-center class="calibrate" (click)="calibrate()" [disabled]="playing">
     <ion-spinner *ngIf="loading"></ion-spinner>
     <ion-icon *ngIf="!loading" name="infinite"></ion-icon>
   </button>
+</ion-header>
 
+<ion-content class="home" padding>
   <ion-slides #qSlider (ionDidChange)="onSlideChanged()" [options]="{onlyExternal: true}">
     <ion-slide *ngFor="let q of questions; let i = index">
         <h1 class="question">{{ i+1 }}. {{ q.question }}</h1>
