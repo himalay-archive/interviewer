@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { Keyboard } from 'ionic-native';
 
 import {StorageProvider} from '../../providers/storage/storage';
 import {HomePage} from '../home/home';
@@ -14,10 +15,11 @@ export class WelcomePage {
   constructor(private navCtrl: NavController, public storage: StorageProvider) {}
 
   public openHome () {
+    Keyboard.close()
     this.loading = true;
+    this.storage.setKV('candidate', this.candidate);
     setTimeout(() => {
-      this.storage.setKV('candidate', this.candidate);
       this.navCtrl.setRoot(HomePage);
-    }, 500)
+    }, 1000)
   }
 }
