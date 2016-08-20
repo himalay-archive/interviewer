@@ -11,11 +11,11 @@
 
 <ion-content class="home" padding>
   <ion-slides #qSlider (ionDidChange)="onSlideChanged()" [options]="{onlyExternal: true}">
+  <ion-slide *ngIf="questions.length === 0">
+    There are no questions to be asked.
+  </ion-slide>
     <ion-slide *ngFor="let q of questions; let i = index">
         <h1 class="question">{{ i+1 }}. {{ q.question }}</h1>
-        <p *ngIf="questions.length === 0">
-          There are no questions to ask.
-        </p>
     </ion-slide>
   </ion-slides>
 
