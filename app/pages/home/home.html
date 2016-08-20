@@ -13,10 +13,13 @@
   <ion-slides #qSlider (ionDidChange)="onSlideChanged()" [options]="{onlyExternal: true}">
     <ion-slide *ngFor="let q of questions; let i = index">
         <h1 class="question">{{ i+1 }}. {{ q.question }}</h1>
+        <p *ngIf="questions.length === 0">
+          There are no questions to ask.
+        </p>
     </ion-slide>
   </ion-slides>
 
-  <button fab light class="toggle" (click)="toggleInterview()">
+  <button fab light class="toggle" (click)="toggleInterview()" [disabled]="questions.length === 0">
     <ion-icon name="{{playing ? 'square' : 'play'}}"></ion-icon>
   </button>
 
