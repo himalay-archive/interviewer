@@ -20,7 +20,7 @@ declare module TTS {
   function speak(text: string, onfulfilled: () => void, onrejected: (reason) => void): void;
 }
 
-const arr10: Array<number> = Array(10).fill(0)
+const arr5: Array<number> = Array(5).fill(0)
 
 @Component({
   templateUrl: 'build/pages/home/home.html'
@@ -30,10 +30,11 @@ export class HomePage {
   candidate: string = 'Candidate';
   calibratedDb: number = 0.0;
   currentDb: number = 0.0;
-  currentDbArr: Array<number> = arr10
+  currentDbArr: Array<number> = arr5
   playing: boolean = false;
   speaking: boolean = false;
   loading: boolean = false;
+  discourseMarkers: Array<String> = ['', 'Ok, ', 'Anyway', 'Okay, ', 'So tell me, ', 'Right, '];
   @ViewChild('qSlider') slider: Slides;
 
   constructor(public navCtrl: NavController, private ref: ChangeDetectorRef, public storage: StorageProvider, private toast: ToastController) {
@@ -42,7 +43,7 @@ export class HomePage {
       this.currentDb = parseFloat(data);
       this.currentDbArr[index] = this.currentDb;
       index++;
-      if (index === 10) index = 0;
+      if (index === 5) index = 0;
       // this.ref.detectChanges();
     });
     this.storage.getKV('candidate').then((value) => {
@@ -60,6 +61,14 @@ export class HomePage {
       .then((questions: Array<Question>) => {
         this.questions = questions;
       });
+  }
+
+  private speak (text) {
+    return new Promise(resolve => {
+      TTS.speak(text,
+        () => resolve(),
+        err => console.error(err));
+    })
   }
 
   public openQuestions() {
@@ -87,13 +96,15 @@ export class HomePage {
     this.playing = !this.playing;
     setTimeout(() => {
       if (this.playing) {
-        TTS.speak(`All right, let's do this. I wish you best of luck ${this.candidate}.`,
-          () => {
-            TTS.speak(this.questions[0].question,
-              () => this.askNextQuestion(),
-              err => console.error(err));
-          },
-          err => console.error(err));
+        this.speak(`Let's get started with this interview. I wish you best of luck ${this.candidate}.`)
+        .then(() => {
+          if (this.playing) {
+            this.speak(this.questions[0].question)
+            .then(() => this.askNextQuestion());
+          }
+        });
+      } else {
+        this.speak('').then(() => {});// immediately cancels the previous speak
       }
     }, 500)
   }
@@ -110,13 +121,12 @@ export class HomePage {
         if (isNotAnswering > 15) {
           isNotAnswering = 0;
           if (this.slider.isEnd()) {
-            TTS.speak(`That was the last question for you. Thank you very much ${this.candidate}.`,
-              () => {
+            this.speak(`Thank you very much ${this.candidate}.`)
+            .then(() => {
                 this.playing = false;
                 clearInterval(askInterval);
                 this.slider.slideTo(0);
-              },
-              err => console.error(err));
+              });
           } else {
             this.slider.slideNext();
           }
@@ -130,10 +140,11 @@ export class HomePage {
 
   onSlideChanged() {
     if (this.playing) {
-      let slideIndex = this.slider.getActiveIndex();
-      TTS.speak(this.questions[slideIndex].question,
-        () => console.log('done asking'),
-        err => console.error(err));
+      let slideIndex: number = this.slider.getActiveIndex();
+      let random: number = Math.floor(Math.random() * (this.discourseMarkers.length - 1 - 0 + 1) + 0)
+      let discourseMarker: String = this.slider.isEnd() ? 'One last question, ' : this.discourseMarkers[random];
+      this.speak(discourseMarker + this.questions[slideIndex].question)
+      .then(() => console.log('done asking'));
     }
   }
 
@@ -164,12 +175,12 @@ export class HomePage {
       borderColor: 'rgba(255,255,255, 0.7)',
       borderWidth: 1,
       pointRadius: 0,
-      data: arr10
+      data: arr5
     }
 
     let data = {
-      labels: arr10,
-      datasets: Array(Object.assign({}, dataSet, { data: arr10 }), dataSet)
+      labels: arr5,
+      datasets: Array(Object.assign({}, dataSet, { data: arr5 }), dataSet)
     };
 
     let options = {
@@ -199,6 +210,6 @@ export class HomePage {
       sparkLine.data.datasets[0].data = Array(10).fill(this.calibratedDb)
       sparkLine.data.datasets[1].data = this.currentDbArr;
       sparkLine.update();
-    }, 10)
+    }, 0)
   }
 }
